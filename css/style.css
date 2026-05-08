@@ -91,17 +91,6 @@ main > * {
 }
 
 footer {
-    /*background-color: white;
-    padding: 10px;
-    padding-left: 10px;
-    padding-right: 0px;
-    display: flex;
-    flex-direction: column;
-    border-radius: 9px;
-    justify-content: center;
-    text-align: center;
-    width: 100%;*/
-
     background-color: white;
     padding: 10px;
     padding-left: 10px;
@@ -117,38 +106,26 @@ footer {
     font-size: 15px;
 }
 
-main hr.quiz {
-    border-color: lightgray;
-    size: 1;
-    margin-left: 30px;
-    margin-right: 30px;
-}
-
-main:not(.quiz) hr {
-    border-color: lightgray;
-    size: 1;
-    margin-left: 12px;
-    margin-right: 12px;
-}
-
 main a {
     color: rgb(21, 79, 238);
     text-decoration: none;
+    transition: 0.15s ease-in-out;
 }
 
 footer a {
     color: rgb(21, 79, 238);
     text-decoration: none;
+    transition: 0.15s ease-in-out;
 }
 
 footer a:hover {
     color: rgb(0, 0, 114);
-    transition: 0.25s;
+    transition: 0.15s ease-in-out;
 }
 
 main a:hover {
     color: rgb(0, 0, 114);
-    transition: 0.25s;
+    transition: 0.15s ease-in-out;
 }
 
 main li {
@@ -171,7 +148,7 @@ main p {
 }
 
 body {
-    opacity: 0;
+    opacity: 1;
 }
 
 body.loaded {
