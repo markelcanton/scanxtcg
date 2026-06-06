@@ -16,6 +16,7 @@ body {
     gap: 18px;
     box-sizing: border-box;
     padding: 20px;
+    opacity: 1;
 }
 
 header {
@@ -26,6 +27,7 @@ header {
     display: flex;
     align-items: center;
     border-radius: 15px;
+    animation-delay: 0.1s;
 }
 
 header > img {
@@ -83,6 +85,7 @@ main {
     background-color: rgb(255, 255, 255, 0.75);
     padding: 5px;
     border-radius: 15px;
+    animation-delay: 0.3s;
 }
 
 main > * {
@@ -99,11 +102,7 @@ footer {
     flex-direction: column;
     align-items: center;
     border-radius: 15px;
-}
-
-.disclaimer {
-    padding-top: 7px;
-    font-size: 15px;
+    animation-delay: 0.5s;
 }
 
 main a {
@@ -147,19 +146,11 @@ main p {
     }
 }
 
-body {
-    opacity: 1;
-}
-
 body.loaded {
     opacity: 1;
     transition: opacity 0.2s ease-out;
     animation: fadeIn 0.2s ease-out forwards;
 }
-
-header { animation-delay: 0.1s; }
-main { animation-delay: 0.3s; }
-footer { animation-delay: 0.5s; }
 
 @media (max-width: 600px) {
     header {
@@ -187,4 +178,31 @@ footer { animation-delay: 0.5s; }
         padding-left: 15px;
         padding-right: 15px;
     }
+}
+
+.search-btn {
+    background: linear-gradient(145deg, #1ba8bb, #1c7ea5);
+    color: white;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 20px;
+    width: 100%;
+    font-size: 1rem;
+    min-width: 180px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.search-btn:active {
+    background: linear-gradient(145deg, #175e68, #0e4e68);
+    transform: scale(0.99);
 }
