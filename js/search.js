@@ -7,7 +7,7 @@ document.getElementById('fetchBtn').addEventListener('click', async () => {
     resultDiv.innerHTML = "<p>Buscando resultados... Por favor, espera.</p>";
 
     try {
-        const response = await fetch(`https://api.pokemontcg.io/v2/cards?q=name:"${userInput}"`); // API
+        const response = await fetch(`https://api.pokemontcg.io/v2/cards?q=name:"${userInput}"&orderBy=-set.releaseDate`); 
         const data = await response.json();
 
         if (data.data && data.data.length > 0) {
@@ -15,18 +15,23 @@ document.getElementById('fetchBtn').addEventListener('click', async () => {
 
             data.data.forEach(card => {
                 const pm = card.cardmarket?.prices;
-                const rawPrice = pm?.trendPrice || pm?.avg30 || pm?.avg7 || pm?.lowPrice;
-                const price = rawPrice ? `${rawPrice.toFixed(2)} €` : "N/A";
+                const tcgp = card.tcgplayer?.prices?.holofoil || card.tcgplayer?.prices?.normal;
+                const rawPrice = pm?.trendPrice || pm?.avg30 || pm?.lowPrice;
+                
+                let price = "";
+                if (rawPrice) {
+                    price = `${rawPrice.toFixed(2)} €`;
+                } else if (tcgp?.market) {
+                    price = `~ ${(tcgp.market * 0.9).toFixed(2)} €`;
+                } else {
+                    price = `<span style="font-size: 0.85rem; color: #777; font-weight: normal;">Ver mercado en vivo</span>`;
+                }
 
                 const codigoVisual = `${card.number}/${card.set.printedTotal}`;
 
-                let cardmarketUrl = "";
-                if (card.cardmarket?.url && card.cardmarket.url !== "#") {
-                    cardmarketUrl = card.cardmarket.url;
-                } else {
-                    const query = `${card.name} ${card.set.id.toUpperCase()} ${card.number}`;
-                    cardmarketUrl = `https://www.cardmarket.com/en/Pokemon/Products/Search?searchString=${encodeURIComponent(query)}`;
-                }
+                const query = `${card.name} ${card.number}`;
+                const cardmarketUrl = `https://www.cardmarket.com/es/Pokemon/Products/Search?searchString=${encodeURIComponent(query)}`;
+
                 totalHTML += `
                             <div class="card-info anim-entrada" style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #ddd; width: 220px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; display: flex; flex-direction: column; justify-content: space-between;">
                                 <div>
@@ -55,6 +60,7 @@ document.getElementById('fetchBtn').addEventListener('click', async () => {
             resultDiv.innerHTML = `<div class="error-vibrar">No se encontraron cartas.</div>`;
         }
     } catch (error) {
-        resultDiv.innerHTML = "<p>Error de conexión.</p>";
+        console.error("Error en la petición:", error);
+        resultDiv.innerHTML = "<p>Error de conexión con la base de datos.</p>";
     }
 });
